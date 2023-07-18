@@ -51,7 +51,8 @@ namespace SearchEngineTrackerApi.Services
             MatchCollection matches = Regex.Matches(htmlContent, urlPattern, RegexOptions.Singleline);
 
             List<int> orderNumbers = new List<int>();
-            int orderNumber = 1;
+            //Google is always the first link
+            int orderNumber = 0;
 
             foreach (Match match in matches)
             {
