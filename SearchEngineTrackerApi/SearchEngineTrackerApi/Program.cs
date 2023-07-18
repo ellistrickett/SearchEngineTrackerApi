@@ -1,3 +1,5 @@
+using SearchEngineTrackerApi.Interfaces;
+using SearchEngineTrackerApi.Services;
 
 namespace SearchEngineTrackerApi
 {
@@ -10,6 +12,20 @@ namespace SearchEngineTrackerApi
             // Add services to the container.
 
             builder.Services.AddControllers();
+
+            builder.Services.AddScoped<ISearchService, SearchService>();
+
+            builder.Services.AddHttpClient();
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                });
+            });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -27,6 +43,7 @@ namespace SearchEngineTrackerApi
 
             app.UseAuthorization();
 
+            app.UseCors();
 
             app.MapControllers();
 
